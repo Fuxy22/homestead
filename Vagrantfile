@@ -14,6 +14,7 @@ customizationScriptPath = confDir + "/user-customizations.sh"
 aliasesPath = confDir + "/aliases"
 
 require File.expand_path(File.dirname(__FILE__) + '/scripts/homestead.rb')
+require File.expand_path(File.dirname(__FILE__) + '/scripts/addons/addons.rb')
 
 Vagrant.require_version '>= 2.1.0'
 
@@ -34,6 +35,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     Homestead.configure(config, settings)
+
+    Addons.configure(config, settings)
 
     if File.exist? afterScriptPath then
         config.vm.provision "shell", path: afterScriptPath, privileged: false, keep_color: true
